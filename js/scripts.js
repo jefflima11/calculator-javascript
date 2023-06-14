@@ -25,7 +25,7 @@ class Calculator {
       
         // Get current and previu values
         let operationValue;
-        const previous = +this.previousOperationText.innerText;
+        const previous = +this.previousOperationText.innerText.split(" ")[0];
         const current = +this.currentOperationText.innerText;
 
         switch(operation) {
@@ -33,6 +33,18 @@ class Calculator {
                 operationValue = previous + current
                 this.updateScreen(operationValue, operation, current, previous);
                 break;
+            case "-":
+                operationValue = previous + current
+                this.updateScreen(operationValue, operation, current, previous);
+                break;
+            case "/":
+                operationValue = previous + current
+                this.updateScreen(operationValue, operation, current, previous);
+                break;
+            case "*":
+                operationValue = previous + current
+                this.updateScreen(operationValue, operation, current, previous);
+                break;            
             default:
              return;
         }
@@ -42,11 +54,21 @@ class Calculator {
     updateScreen(operationValue = null
                 ,operation = null
                 ,current = null
-                ,previous = null) {
-        
-        console.log(operationValue, operation, current, previous)
+                ,previous = null
+                ) {
+                    console.log(operationValue, operation, current, previous);
+                    if(operationValue === null) {
+                        this.currentOperationText.innerText += this.currentOperation;
+                    } else {
+                        //chek if value is zero, if it is just add current value
+                        if(previous === 0) {
+                            operationValue = current
+                        }
 
-        this.currentOperationText.innerText += this.currentOperation;
+                        //add current value to previous
+                        this.previousOperationText.innerText = `${operationValue} ${operation}`;
+                        this.currentOperationText.innerText = "";
+                    }
     }
 }
 
