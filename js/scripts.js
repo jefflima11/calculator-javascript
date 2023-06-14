@@ -22,7 +22,16 @@ class Calculator {
 
     // Process all calculator operations
     processOperation(operation) {
-      
+
+        // Check if current is empty
+        if(this.currentOperationText.innerText === "") {
+            //Change operation
+            if(this.previousOperationText.innerText !== ""){
+                this.changeOperation(operation);
+            }return;
+        }
+
+
         // Get current and previu values
         let operationValue;
         const previous = +this.previousOperationText.innerText.split(" ")[0];
@@ -69,6 +78,17 @@ class Calculator {
                         this.previousOperationText.innerText = `${operationValue} ${operation}`;
                         this.currentOperationText.innerText = "";
                     }
+    }
+
+    //Change math operation
+    changeOperation(operation) {
+        const mathOperations = ["*","/","+","-"]
+
+        if (!mathOperations.includes(operation)) {
+            return
+        }
+
+        this.previousOperationText.innerText = this.previousOperationText.innerText.slice(0, -1) + operation;
     }
 }
 
