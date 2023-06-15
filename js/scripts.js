@@ -24,7 +24,7 @@ class Calculator {
     processOperation(operation) {
 
         // Check if current is empty
-        if(this.currentOperationText.innerText === "") {
+        if(this.currentOperationText.innerText === "" && operation !=="C") {
             //Change operation
             if(this.previousOperationText.innerText !== ""){
                 this.changeOperation(operation);
@@ -53,7 +53,19 @@ class Calculator {
             case "*":
                 operationValue = previous + current
                 this.updateScreen(operationValue, operation, current, previous);
-                break;            
+                break;
+            case "DEL":
+                this.processDelOperator();
+                break;
+            case "CE":
+                this.processClearCurrentOperation();
+                break;
+            case "C":
+                this.processClearOperation();
+                break;
+            case "=":
+                this.processEqualOperation();
+                break;                                  
             default:
              return;
         }
@@ -89,6 +101,30 @@ class Calculator {
         }
 
         this.previousOperationText.innerText = this.previousOperationText.innerText.slice(0, -1) + operation;
+    }
+
+    //Delete the last digit
+    processDelOperator() {
+        this.currentOperationText.innerText = 
+        this.currentOperationText.innerText.slice(0, -1);
+    }
+    
+    //Clear current operation
+    processClearCurrentOperation() {
+        this.currentOperationText.innerText = "";
+    }
+
+    //Clear all operations
+    processClearOperation(){
+        this.currentOperationText.innerText = "";
+        this.previousOperationText.innerText = "";
+    }
+
+    //Process an operation
+    processEqualOperation(){
+        const operation = previousOperationText.innerText.split(" ")[1];
+
+        this.processOperation(operation);
     }
 }
 
